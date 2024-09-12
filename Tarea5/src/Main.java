@@ -1,15 +1,15 @@
+import java.sql.SQLOutput;
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
-
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-        }
+        Rectangulo rectangulo = new Rectangulo(10, 5);
+        System.out.println("    Base: " + rectangulo.base);
+        System.out.println("    Altura: " + rectangulo.altura);
+        System.out.println("    Area: " + rectangulo.calcularArea());
+        System.out.println("    Perimetro: " + rectangulo.calcularPerimetro());
+        System.out.println("    Area de valores double : " + rectangulo.calcularArea(13.4, 5.6));
+        System.out.println("    Perimetro de valores double : " + rectangulo.calcularPerimetro(13.4, 5.6));
     }
 }
