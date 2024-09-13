@@ -18,4 +18,13 @@ public class Rectangulo {
     public double calcularPerimetro(double base, double altura) {
         return base * 2 + altura * 2;
     }
+
+
+    // GETTERS
+    public int getBase() {
+        return base;
+    }
+    public int getAltura() {
+        return altura;
+    }
 }
