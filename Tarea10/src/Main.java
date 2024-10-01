@@ -13,13 +13,8 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Hospital hospital = new Hospital();
-        Paciente paciente1 = new Paciente("P202491247952219","Jose Israel","Olvera Bucio", LocalDate.of(2005,04,19),"O+",'M',"4436431778");
-        Medico medico1 = new Medico("M-ZE-3-2024-21843-1","Sofia","Zendejas Quintana",LocalDate.of(2007,01,23),"7861278729","1230");
-        Consultorio consultorio1 = new Consultorio("C1302024240177",3,56);
 
-        hospital.listaPacientes.add(paciente1);
-        hospital.listaMedicos.add(medico1);
-        hospital.listaConsultorios.add(consultorio1);
+
         while (true) {
             System.out.println("\n*** SISTEMA HOSPITAL*");
             System.out.println("\n** Menu **");
