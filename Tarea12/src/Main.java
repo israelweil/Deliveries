@@ -17,7 +17,7 @@ public class Main {
  */
 
 //        datos ingresados para hacer pruebas
-        Paciente paciente1 = new Paciente("P202491247952219","Jose Israel","Olvera Bucio", LocalDate.of(2005,04,19),"O+",'M',"4436431778");
+        Paciente paciente1 = new Paciente("P202491247952219","Jose_Israel","Olvera Bucio", LocalDate.of(2005,04,19),"O+",'M',"4436431778");
         Medico medico1 = new Medico("M-ZE-3-2024-21843-1","Sofia","Zendejas Quintana",LocalDate.of(2007,01,23),"7861278729","1230");
         Consultorio consultorio1 = new Consultorio("C1302024240177",3,56);
         Hospital hospital = new Hospital();
