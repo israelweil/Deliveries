@@ -1,11 +1,10 @@
 package hospital;
-
 import consultas.Consulta;
 import consultorios.Consultorio;
 import medicos.Medico;
 import pacientes.Paciente;
-
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -75,8 +74,13 @@ public class Hospital {
         }
     }
     public void mostrarConsultas() {
-        for(Consulta consulta : this.listaConsultas) {
-            System.out.println(consulta.mostrarDatos());
+        if(this.listaConsultas.isEmpty()) {
+            System.out.println("\n❈     No hay consultas registradas     ❈\n");
+        } else {
+            System.out.println("\n❧     Consultas del Hospital      ❧\n");
+            for(Consulta consulta : this.listaConsultas) {
+                System.out.println(consulta.mostrarDatos());
+            }
         }
     }
 
@@ -170,11 +174,36 @@ public class Hospital {
         }
     }
 
+<<<<<<< HEAD
 //    obtener lista de consultas por nombre del paciente
     public Consulta consultaPaciente(String paciente) {
         return listaConsultas.stream().filter(c -> c.getPaciente().getNombre().equals(paciente)).findFirst().orElse(null);
     }
+=======
+//    metodo para validar que la fecha de la consult sea la correcta
+    public boolean validarFechaConsulta(LocalDateTime fechaDeseada) {
+        return this.validador.validarFechaCorrecta(fechaDeseada);
+    }
+
+
+//    metodo para obtener el telefono del paciente
+    public Paciente obtenerTelefonoPaciente(String telefonoPaciente) {
+        return listaPacientes.stream().filter(p -> p.getTelefono().equals(telefonoPaciente)).findFirst().orElse(null);
+    }
+
+//    metodo para obtener el telefono del medico
+    public Medico obtenerTelefonoMedico(String telefonoMedico) {
+        return listaMedicos.stream().filter(m -> m.getTelefono().equals(telefonoMedico)).findFirst().orElse(null);
+    }
+
+//    metodo para obtener el rfc del medico
+    public Medico obtenerRfcMedico(String rfc) {
+        return listaMedicos.stream().filter(m -> m.getRfc().equals(rfc)).findFirst().orElse(null);
+    }
+//    metodos privados
+>>>>>>> fe8dd25385bcf6c0b850e5928758df69e5e72838
 
 //    metodos privados
 }
+
 
