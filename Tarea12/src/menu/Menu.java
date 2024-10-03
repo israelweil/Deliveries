@@ -11,18 +11,30 @@ import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class Menu {
-    private Hospital hospital = new Hospital();
+    public Hospital hospital = new Hospital();
     private Scanner scanner = new Scanner(System.in);
     private final String USUARIO_PACIENTE = "Patricia";
     private final String CONTRASENIA_PACIENTE = "12345";
     private final String USUARIO_MEDICO = "Mercado";
     private final String CONTRASENIA_MEDICO = "54321";
+    private final String USUARIO_ADMIN = "admin";
+    private final String CONTRASENIA_ADMIN = "admin1";
 
 
     public void login(){
-        int intentosMAXIMOS = 5, intentosUsuario = 0;
+        Paciente paciente1 = new Paciente("P202491247952219","Jose Israel","Olvera Bucio", LocalDate.of(2005,04,19),"O+",'M',"4436431778");
+        Medico medico1 = new Medico("M-ZE-3-2024-21843-1","Sofia","Zendejas Quintana",LocalDate.of(2007,01,23),"7861278729","1230");
+        Consultorio consultorio1 = new Consultorio("C1302024240177",3,56);
+
+        hospital.listaPacientes.add(paciente1);
+        hospital.listaMedicos.add(medico1);
+        hospital.listaConsultorios.add(consultorio1);
+
+
+        int intentosMAXIMOS = 3, intentosUsuario = 0;
         System.out.println("BIENVENIDO");
         System.out.println("Inicia sesion para continuar");
+
         while(intentosUsuario < intentosMAXIMOS) {
 
             System.out.println("Ingresa el  usuario: ");
@@ -33,37 +45,35 @@ public class Menu {
 
             if(usuario.equals(this.USUARIO_PACIENTE)) {
                 if(contrasenia.equals(this.CONTRASENIA_PACIENTE)) {
-
                     this.mostrarMenuPaciente();
+                    intentosUsuario = 0;
                 }
             } else if(usuario.equals(this.USUARIO_MEDICO)){
                 if(contrasenia.equals(this.CONTRASENIA_MEDICO)) {
-
                     this.mostrarMenuMedico();
+                    intentosUsuario = 0;
+                }
+            } else if(usuario.equals(this.USUARIO_ADMIN)){
+                if(contrasenia.equals(this.CONTRASENIA_ADMIN)) {
+                    this.mostrarMenu();
                     intentosUsuario = 0;
                 }
             } else {
 
-                this.mostrarErorInicioSesion(intentosUsuario);
-            }
-
-            if(usuario.equals(this.USUARIO_PACIENTE) && contrasenia.equals(this.CONTRASENIA_PACIENTE)) {
-                System.out.println("Bienvenido " + this.USUARIO_PACIENTE);
-                this.mostrarMenu();
-                break;
-            } else {
-            }
-            if (intentosUsuario == intentosMAXIMOS) {
-                System.out.println("\nHas excedido el numero de intentos permitidos\n");
-                break;
+                mostrarErorInicioSesion(intentosUsuario);
+                intentosUsuario++;
+                System.out.println(intentosUsuario);
+                if (intentosUsuario == intentosMAXIMOS) {
+                    System.out.println("\nHas excedido el numero de intentos permitidos\n");
+                    break;
+                }
             }
         }
-
     }
 
     private int mostrarErorInicioSesion(int intentoUsuario){
         System.out.println("\nUsuario o contrasenia incorrectos\n");
-        return intentoUsuario +1;
+        return intentoUsuario + 1;
     }
 
     private void mostrarMenuPaciente(){
@@ -79,28 +89,50 @@ public class Menu {
                 case 1:
                     //ver consultas
                     System.out.println("\n--Seleccionaste la opción de ver consultas--");
-                    hospital.mostrarConsultas();
+                    hospital.consultaPaciente(USUARIO_PACIENTE);
                     break;
                 case 2:
                     System.out.println("Saliendo del sistema");
-
                     break;
                 default:
                     System.out.println("Numero no esta dentro de las opciones");
-
+            }
         }
+        scanner.nextLine();
     }
 
 
     private void mostrarMenuMedico(){
         int opcion2 = 0;
-        while(opcion !=3) {
+        while(opcion2 !=4) {
             System.out.println("\n****BIENVENIDO****");
             System.out.println("1. Ver consultas");
             System.out.println("2. Ver mis pacientes");
-            System.out.println("4. Consultar Paciente");
-            System.out.println("3. Salir");
+            System.out.println("3. Consultar Paciente");
+            System.out.println("4. Salir");
+
+            System.out.println("Selecciona una opcion: ");
+            opcion2 = scanner.nextInt();
+            switch (opcion2) {
+                case 1:
+                    //ver consultas
+                    System.out.println("\n--Seleccionaste la opción de ver consultas--");
+                    hospital.mostrarConsultas();
+                    break;
+                case 2:
+//                    ver mis pacientes
+                    break;
+                case 3:
+//                    consultar paciente
+                    break;
+                case 4:
+                    System.out.println("Saliendo del sistema");
+                    break;
+                default:
+                    System.out.println("Numero no esta dentro de las opciones");
+            }
         }
+        scanner.nextLine();
     }
 
 

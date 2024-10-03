@@ -170,7 +170,11 @@ public class Hospital {
         }
     }
 
-//    metodos privados
+//    obtener lista de consultas por nombre del paciente
+    public Consulta consultaPaciente(String paciente) {
+        return listaConsultas.stream().filter(c -> c.getPaciente().getNombre().equals(paciente)).findFirst().orElse(null);
+    }
 
+//    metodos privados
 }
 
