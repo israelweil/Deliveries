@@ -3,8 +3,9 @@ package menu;
 import consultas.Consulta;
 import consultorios.Consultorio;
 import hospital.Hospital;
-import medicos.Medico;
-import pacientes.Paciente;
+import usuarios.administradores.Administrador;
+import usuarios.medicos.Medico;
+import usuarios.pacientes.Paciente;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -105,7 +106,7 @@ public class Menu {
         while(opcion2 !=3) {
             System.out.println("\n****BIENVENIDO****");
             System.out.println("1. Ver consultas");
-            System.out.println("2. Ver mis pacientes");
+            System.out.println("2. Ver mis usuarios.pacientes");
             System.out.println("3. Consultar Paciente");
             System.out.println("4. Salir");
 
@@ -118,7 +119,7 @@ public class Menu {
                     hospital.mostrarConsultasPorMedico(id);
                     break;
                 case 2:
-//                    ver mis pacientes
+//                    ver mis usuarios.pacientes
                     System.out.println(hospital.obtenerNombresPacientesPorMedico(id));
                     break;
                 case 3:
@@ -136,7 +137,7 @@ public class Menu {
     private void mostrarMenu() {
         int opcion=0;
 
-        while(opcion !=12) {
+        while(opcion !=14) {
             System.out.println("\n****BIENVENIDO****");
             System.out.println("1. Registrar paciente");
             System.out.println("2. Registrar medico");
@@ -149,7 +150,9 @@ public class Menu {
             System.out.println("9. Buscar pacientes por Id");
             System.out.println("10. Buscar medicos por Id");
             System.out.println("11. Buscar consultorios por Id");
-            System.out.println("12. Salir");
+            System.out.println("12. Registrar administrador");
+            System.out.println("13. Mostrar administradores");
+            System.out.println("14. Salir");
             System.out.print("\nSelecciona una opcion: ");
             opcion = scanner.nextInt();
             switch (opcion) {
@@ -163,6 +166,9 @@ public class Menu {
 
                     System.out.println("Ingresa los apellidos: ");
                     String apellidos = scanner.nextLine();
+
+                    System.out.println("Ingresa la contrasenia: ");
+                    String contrasenia = scanner.nextLine();
 
                     System.out.println("Ingresa el anio de nacimiento: ");
                     int anioNacimiento = scanner.nextInt();
@@ -196,7 +202,7 @@ public class Menu {
                     String idPaciente = hospital.generarIdPaciente();
                     LocalDate fechaNacimiento = LocalDate.of(anioNacimiento,mesNacimiento,diaNacimiento);
 
-                    Paciente paciente = new Paciente(idPaciente,nombre, apellidos,fechaNacimiento,tipoSangre,sexo,telefono);
+                    Paciente paciente = new Paciente(idPaciente,nombre, apellidos,fechaNacimiento,tipoSangre,sexo,telefono, contrasenia);
                     hospital.registrarPaciente(paciente);
                     System.out.println("Paciente registrado exitosamente");
                     break;
@@ -211,6 +217,9 @@ public class Menu {
 
                     System.out.println("Ingresa los apellidos: ");
                     String apellidosMedico = scanner.nextLine();
+
+                    System.out.println("Ingresa la contrasenia: ");
+                    String contraseniaMedico = scanner.nextLine();
 
                     System.out.println("Ingresa el año de nacimiento: ");
                     int anioNacimientoMedico = scanner.nextInt();
@@ -253,7 +262,7 @@ public class Menu {
 
                     String idMedico = hospital.generarIdMedico(apellidosMedico,String.valueOf(fechaNacimientoMedico));
 
-                    Medico medico = new Medico(idMedico, nombreMedico,apellidosMedico,fechaNacimientoMedico,telefonoMedico,rfc);
+                    Medico medico = new Medico(idMedico, nombreMedico,apellidosMedico,fechaNacimientoMedico,telefonoMedico,rfc, contraseniaMedico);
                     hospital.registrarMedico(medico);
                     System.out.println("Medico registrado exitosamente");
                     break;
@@ -348,13 +357,13 @@ public class Menu {
 
                     break;
                 case 5:
-                    //mostrar pacientes
-                    System.out.println("\n--Seleccionaste la opción de mostrar pacientes--");
+                    //mostrar usuarios.pacientes
+                    System.out.println("\n--Seleccionaste la opción de mostrar usuarios.pacientes--");
                     hospital.mostrarPacientes();
                     break;
                 case 6:
-                    //mostrar medicos
-                    System.out.println("\n--Seleccionaste la opción de mostrar medicos--");
+                    //mostrar usuarios.medicos
+                    System.out.println("\n--Seleccionaste la opción de mostrar usuarios.medicos--");
                     hospital.mostrarMedicos();
                     break;
                 case 7:
@@ -367,7 +376,7 @@ public class Menu {
                     hospital.mostrarConsultas();
                     break;
                 case 9:
-                    // Buscar pacientes por Id
+                    // Buscar usuarios.pacientes por Id
                     System.out.println("\nAccediste a la opcion de buscar paciente por su Id: ");
                     System.out.print("Ingresa el Id del paciente: ");
                     scanner.nextLine();
@@ -375,8 +384,8 @@ public class Menu {
                     hospital.mostrarPacienteID(idPacienteBuscar);
                     break;
                 case 10:
-//                    mostrar medicos por el id
-                    System.out.println("\nAccediste a la opcion de mostrar medicos por su Id");
+//                    mostrar usuarios.medicos por el id
+                    System.out.println("\nAccediste a la opcion de mostrar usuarios.medicos por su Id");
                     System.out.print("Ingresa el Id del medico: ");
                     scanner.nextLine();
                     String idMedicoBuscar = scanner.nextLine();
@@ -391,6 +400,75 @@ public class Menu {
                     hospital.mostrarConsultorioID(idConsultorioBuscar);
                     break;
                 case 12:
+//                    opcion para registrar un admin
+                    System.out.println("\nAccediste a la opcion de registrar un administrador");
+                    scanner.nextLine();
+
+                    System.out.println("Ingresa el nombre: ");
+                    String nombreAdmin = scanner.nextLine();
+
+
+                    System.out.println("Ingresa los apellidos: ");
+                    String apellidosAdmin = scanner.nextLine();
+
+                    System.out.println("Ingresa la contrasenia: ");
+                    String contraseniaAdmin = scanner.nextLine();
+
+                    System.out.println("Ingresa el año de nacimiento: ");
+                    int anioNacimientoAdmin = scanner.nextInt();
+
+                    System.out.println("Ingresa el mes de nacimiento: ");
+                    int mesNacimientoAdmin = scanner.nextInt();
+
+                    System.out.println("Ingresa el dia de nacimiento: ");
+                    int diaNacimientoAdmin = scanner.nextInt();
+                    scanner.nextLine();
+
+                    LocalDate fechaNacimientoAdmin = LocalDate.of(anioNacimientoAdmin,mesNacimientoAdmin,diaNacimientoAdmin);
+
+//                  metodo para verificar si no existe otro medico con ese telefono
+                    String telefonoAdmin = null;
+                    while(telefonoAdmin == null) {
+
+                        System.out.println("Ingresa el telefono: ");
+                        telefonoAdmin = scanner.nextLine();
+                        Administrador telefonoAdmin1 = hospital.obtenerTelefonoAdmin(telefonoAdmin);
+                        if(telefonoAdmin1 != null) {
+                            System.out.println("\n☏☏    Ya existe ese numero de telefono, intenta con otro    ☏☏\n");
+                            telefonoAdmin = null;
+                        }
+                    }
+
+//                    metodo para verificar si no existe es rfc en el sistema
+                    String rfcAdmin = null;
+                    while(rfcAdmin == null) {
+
+                        System.out.println("Ingresa el RFC: ");
+                        rfcAdmin = scanner.nextLine();
+                        Administrador rfcAdmin1 = hospital.obtenerRfcAdmin(rfcAdmin);
+                        if(rfcAdmin1 != null) {
+                            System.out.println("\n☏☏    Ya existe ese RFC, intenta con otro    ☏☏\n");
+                            rfcAdmin = null;
+                        }
+                    }
+
+                    System.out.println("Ingresa tu sueldo quincenal: ");
+                    double sueldo = scanner.nextDouble();
+
+                    System.out.println("Ingresa los anios que llevas laborando: ");
+                    int antiguedad = scanner.nextInt();
+
+                    String idAdmin = hospital.generarIdAdmin(apellidosAdmin,String.valueOf(fechaNacimientoAdmin));
+
+                    Administrador administrador = new Administrador(idAdmin,nombreAdmin,apellidosAdmin,fechaNacimientoAdmin,telefonoAdmin, contraseniaAdmin,sueldo,rfcAdmin,antiguedad);
+                    hospital.registrarAdministrador(administrador);
+
+                    break;
+                case 13:
+//                    mostrar administradores
+                    hospital.mostrarAdministradores();
+                    break;
+                case 14:
                     System.out.println("\n♛♛    Saliendo del sistema    ♛♛\n");
                     break;
                 default:

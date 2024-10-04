@@ -1,8 +1,9 @@
 package hospital;
 import consultas.Consulta;
 import consultorios.Consultorio;
-import medicos.Medico;
-import pacientes.Paciente;
+import usuarios.administradores.Administrador;
+import usuarios.medicos.Medico;
+import usuarios.pacientes.Paciente;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ public class Hospital {
     public ArrayList<Medico> listaMedicos = new ArrayList<>();
     public ArrayList<Consulta> listaConsultas = new ArrayList<>();
     public ArrayList<Consultorio> listaConsultorios = new ArrayList<>();
+    public ArrayList<Administrador> listaAdministradores = new ArrayList<>();
     private ValidadorHospital validador = new ValidadorHospital();
 
 
@@ -28,6 +30,9 @@ public class Hospital {
 
     public void registrarMedico(Medico medico) {
         this.listaMedicos.add(medico);
+    }
+    public void registrarAdministrador(Administrador admin) {
+        this.listaAdministradores.add(admin);
     }
 
     public void registrarConsulta(Consulta consulta) {
@@ -70,6 +75,11 @@ public class Hospital {
             System.out.println(medico.mostrarDatos());
         }
     }
+    public void mostrarAdministradores() {
+        for(Administrador administrador : this.listaAdministradores) {
+            System.out.println(administrador.mostrarDatos());
+        }
+    }
     public void mostrarConsultorio() {
         for(Consultorio consultorio : this.listaConsultorios) {
             System.out.println(consultorio.mostrarDatos());
@@ -104,6 +114,23 @@ public class Hospital {
                 lista);
     }
 
+    //    metodo para generar el id del admin
+    public String generarIdAdmin(String apellido, String fechaNacimiento) {
+        LocalDate fecha = LocalDate.now();
+        Random random = new Random();
+        String ap = apellido.substring(0, 2).toUpperCase();
+        char ultimoDigito = fechaNacimiento.charAt(fechaNacimiento.length()-1);
+        int yearActual = fecha.getYear();
+        int aleatorio = random.nextInt(51,70001);
+        int lista = listaAdministradores.size()+1;
+        return String.format("A-%s-%s-%d-%d-%d",
+                ap,
+                ultimoDigito,
+                yearActual,
+                aleatorio,
+                lista);
+    }
+
 //    metodo para generar el id del paciente
     public String generarIdPaciente() {
         Random random = new Random();
@@ -128,7 +155,7 @@ public class Hospital {
     }
 
 
-//    metodos para buscar pacientes por id
+//    metodos para buscar usuarios.pacientes por id
     public Paciente obtenerPacienteporId(String idPaciente) {
         return listaPacientes.stream().filter(p -> p.getId().equals(idPaciente)).findFirst().orElse(null);
     }
@@ -196,10 +223,19 @@ public class Hospital {
     public Medico obtenerTelefonoMedico(String telefonoMedico) {
         return listaMedicos.stream().filter(m -> m.getTelefono().equals(telefonoMedico)).findFirst().orElse(null);
     }
+    //    metodo para obtener el telefono del admin
+    public Administrador obtenerTelefonoAdmin(String telefonoAdmin) {
+        return listaAdministradores.stream().filter(a -> a.getTelefono().equals(telefonoAdmin)).findFirst().orElse(null);
+    }
 
 //    metodo para obtener el rfc del medico
     public Medico obtenerRfcMedico(String rfc) {
         return listaMedicos.stream().filter(m -> m.getRfc().equals(rfc)).findFirst().orElse(null);
+    }
+
+    //    metodo para obtener el rfc del admin
+    public Administrador obtenerRfcAdmin(String rfc) {
+        return listaAdministradores.stream().filter(a -> a.getRfc().equals(rfc)).findFirst().orElse(null);
     }
 
     public void mostrarConsultasPorPaciente(String idPaciente) {
