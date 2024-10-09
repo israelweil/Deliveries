@@ -1,9 +1,8 @@
 package hospital;
-
 import consultas.Consulta;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-
 public class ValidadorHospital {
 
     public boolean validarDispolnibilidadEnFechaConsulta(String fechaDeseada, int numeroConsultorio, ArrayList<Consulta> listaConsultas) {
@@ -23,7 +22,12 @@ public class ValidadorHospital {
         }
         return true;
     }
-    /**public boolean validarExistenciaPaciente(String idPaciente) {
 
-    }*/
+    public boolean validarFechaCorrecta(LocalDateTime fechaDeseada) {
+//        obtenemos la fecha actual
+        LocalDateTime fechaActual = LocalDateTime.now();
+
+        if (fechaDeseada.isBefore(fechaActual)) return false;
+        return true;
+    }
 }

@@ -1,8 +1,8 @@
 package consultas;
 
 import consultorios.Consultorio;
-import medicos.Medico;
-import pacientes.Paciente;
+import usuarios.medicos.Medico;
+import usuarios.pacientes.Paciente;
 
 import java.time.LocalDateTime;
 import java.util.Random;
@@ -26,12 +26,15 @@ public class Consulta {
     }
 
     public String mostrarDatos() {
-        return String.format("Id: %d, Fechay Hora: %s, Paciente: %s, Medico: %s, Consultorio: %s",
+        return String.format("Id: %d, Fechay Hora: %s, Id Paciente: %s, Paciente: %s, Id Medico: %s, Medico %s, Piso Consultorio: %d, Numero Consultorio: %d",
                 getId(),
                 getFechaHora(),
-                getPaciente().getNombre(),
-                getMedico().getNombre(),
-                getConsultorio().getId());
+                paciente.getId(),
+                paciente.getNombre(),
+                medico.getId(),
+                medico.getNombre(),
+                consultorio.getPiso(),
+                consultorio.getNumeroConsultorio());
     }
 
 //    getter
