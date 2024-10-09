@@ -60,10 +60,11 @@ public class Menu {
     private void mostrarMenuPaciente(Paciente paciente){
 
         int opcion = 0;
-        while(opcion !=2) {
+        while(opcion !=3) {
             System.out.println("\n****BIENVENIDO****");
             System.out.println("1. Ver consultas");
-            System.out.println("2. Salir");
+            System.out.println("2. Ver mis datos");
+            System.out.println("3. Salir");
 
             System.out.println("Selecciona una opcion: ");
             opcion = scanner.nextInt();
@@ -74,6 +75,10 @@ public class Menu {
                     hospital.mostrarConsultasPorPaciente(paciente.getId());
                     break;
                 case 2:
+                    System.out.println("Seleccionaste la opcion de ver tus datos");
+                    hospital.mostrarPacienteID(paciente.getId());
+                    break;
+                case 3:
                     System.out.println("Saliendo del sistema");
                     scanner.nextLine();
                     break;
@@ -87,11 +92,12 @@ public class Menu {
 
     private void mostrarMenuMedico(Medico medico){
         int opcion2 = 0;
-        while(opcion2 !=3) {
+        while(opcion2 !=4) {
             System.out.println("\n****BIENVENIDO****");
             System.out.println("1. Ver consultas");
             System.out.println("2. Ver mis pacientes");
-            System.out.println("3. Salir");
+            System.out.println("3. Ver mis datos");
+            System.out.println("4. Salir");
 
             System.out.println("Selecciona una opcion: ");
             opcion2 = scanner.nextInt();
@@ -106,6 +112,10 @@ public class Menu {
                     System.out.println(hospital.obtenerNombresPacientesPorMedico(medico.getId()));
                     break;
                 case 3:
+                    System.out.println("\nSeleccionaste la opcion para ver tus datos\n");
+                    hospital.mostrarMedicoID(medico.getId());
+                    break;
+                case 4:
                     System.out.println("Saliendo del sistema");
                     break;
                 default:
