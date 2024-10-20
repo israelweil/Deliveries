@@ -1,5 +1,6 @@
 package hospital;
 import consultas.Consulta;
+import consultas.utils.Status;
 import consultorios.Consultorio;
 import usuarios.Usuario;
 import usuarios.administradores.Administrador;
@@ -7,9 +8,7 @@ import usuarios.medicos.Medico;
 import usuarios.pacientes.Paciente;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 // grabar pantalla al terminar  y subir .gif  y subirlo a github
 public class Hospital {
@@ -31,8 +30,8 @@ public class Hospital {
         Medico medico2 = new Medico("M-RE-3-2024-45336-2","Emerzon","reree",LocalDate.of(1980,12,03),"54321","1895","1234");
         Consultorio consultorio1 = new Consultorio("C1302024240177",3,56);
         Consultorio consultorio2 = new Consultorio("C232024368860",2,12);
-        Consulta consulta1 = new Consulta(LocalDateTime.of(2024,12,12,12,30),paciente1,medico1,consultorio1);
-        Consulta consulta2 = new Consulta(LocalDateTime.of(2025,12,12,10,30),paciente2,medico1,consultorio2);
+        Consulta consulta1 = new Consulta("w23wd",LocalDateTime.of(2024,12,12,12,30),paciente1,medico1,consultorio1);
+        Consulta consulta2 = new Consulta("fey4", LocalDateTime.of(2025,12,12,10,30),paciente2,medico1,consultorio2);
         this.listaPacientes.add(paciente1);
         this.listaPacientes.add(paciente2);
         this.listaMedicos.add(medico1);
@@ -323,6 +322,82 @@ public class Hospital {
             }
         }
         return null;
+    }
+    public String generarIdConsulta() {
+        int diaActual = LocalDate.now().getDayOfMonth();
+        int numeroAleatorio = random.nextInt(100000 - 50) + 50;
+        return String.format("CO-%d-%d-%d", listaConsultas.size() + 1, numeroAleatorio, diaActual);
+    }
+    public void verConsultasPaciente(String idPaciente) {
+        boolean existenConsultas = false;
+        for (Consulta consulta : this.listaConsultas) {
+            if (idPaciente.equals(consulta.getPaciente().getId()) && consulta.getStatus() == Status.PENDIENTE) {
+                existenConsultas = true;
+                System.out.println(consulta.mostrarDatos());
+            }
+        }
+
+        if (!existenConsultas) {
+            System.out.println("\n No tienes consultas agregadas");
+        }
+    }
+
+    public Consulta obternerConsultaPorId(String idConsulta) {
+        for (Consulta consulta : this.listaConsultas) {
+            if (consulta.getId().equals(idConsulta)) {
+                return consulta;
+            }
+        }
+
+        return null;
+    }
+
+    public void eliminarConsultaPorId(String idConsulta) {
+        for (Consulta consulta : this.listaConsultas) {
+            if (consulta.getId().equals(idConsulta)) {
+                this.listaConsultas.remove(consulta);
+                return;
+            }
+        }
+    }
+
+    public void generarExpedienteConsulta(String idConsulta, String idPaciente) {
+        Scanner scanner = new Scanner(System.in);
+        Consulta consulta = this.obternerConsultaPorId(idConsulta);
+
+        if (consulta == null) {
+            System.out.println("No existe una consulta con el ID proorcionado");
+            return;
+        }
+
+        Paciente paciente = this.obtenerPacienteporId(idPaciente);
+
+        if (paciente == null) {
+            System.out.println("No existe con el ID proporcionado");
+            return;
+        }
+
+        consulta.setStatus(Status.TERMINADA);
+
+        this.eliminarConsultaPorId(idConsulta);
+
+        System.out.println("Ingresa las observaciones finales de la consulta:");
+        String observaciones = scanner.nextLine();
+
+        /**Expediente expediente = new Expediente(consulta,observaciones);
+        paciente.registrarExpediente(expediente);*/
+    }
+    public Administrador obtenerAdministradorPorId(String idAdministrador) {
+        return listaAdministradores.stream().filter(m -> m.getId().equals(idAdministrador)).findFirst().orElse(null);
+    }
+    public void mostrarAdministradorID(String adminID) {
+        Administrador administrador = obtenerAdministradorPorId(adminID);
+        if (administrador != null) {
+            System.out.println("✓    -Administrador encontrado-     ✓");
+            System.out.println(administrador.mostrarDatos());
+        } else {
+            System.out.println("No se encontro el administrador");
+        }
     }
 
 //    metodos privados

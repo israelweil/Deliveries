@@ -1,5 +1,6 @@
 package consultas;
 
+import consultas.utils.Status;
 import consultorios.Consultorio;
 import usuarios.medicos.Medico;
 import usuarios.pacientes.Paciente;
@@ -8,17 +9,18 @@ import java.time.LocalDateTime;
 import java.util.Random;
 
 public class Consulta {
-    public int id;
+    public String id;
     public LocalDateTime fechaHora;
     public Paciente paciente;
     public Medico medico;
     public Consultorio consultorio;
+    public Status status;
 
     Random random = new Random();
 
 //    constructor
-    public Consulta(LocalDateTime fechaHora, Paciente paciente, Medico medico, Consultorio consultorio) {
-        this.id = this.random.nextInt(1,10001);
+    public Consulta(String id,LocalDateTime fechaHora, Paciente paciente, Medico medico, Consultorio consultorio) {
+        this.id = id;
         this.fechaHora = fechaHora;
         this.paciente = paciente;
         this.medico = medico;
@@ -26,7 +28,7 @@ public class Consulta {
     }
 
     public String mostrarDatos() {
-        return String.format("Id: %d, Fechay Hora: %s, Id Paciente: %s, Paciente: %s, Id Medico: %s, Medico %s, Piso Consultorio: %d, Numero Consultorio: %d",
+        return String.format("Id: %s, Fechay Hora: %s, Id Paciente: %s, Paciente: %s, Id Medico: %s, Medico %s, Piso Consultorio: %d, Numero Consultorio: %d",
                 getId(),
                 getFechaHora(),
                 paciente.getId(),
@@ -39,7 +41,7 @@ public class Consulta {
 
 //    getter
 
-    public int getId() {
+    public String  getId() {
         return id;
     }
 
@@ -57,6 +59,14 @@ public class Consulta {
 
     public Consultorio getConsultorio() {
         return consultorio;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }
 

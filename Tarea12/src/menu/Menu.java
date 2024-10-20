@@ -43,7 +43,8 @@ public class Menu {
                     this.mostrarMenuMedico(medicoEnSesion);
                     intentosUsuario=0;
                 } else if(usuarioEnSesion.getRol() == Rol.ADMINISTRADOR) {
-                    this.mostrarMenuAdmin();
+                    Administrador AdministradorEnSesion = (Administrador) usuarioEnSesion;
+                    this.mostrarMenuAdmin(AdministradorEnSesion);
                     intentosUsuario=0;
                 }
             } else {
@@ -127,10 +128,10 @@ public class Menu {
 
 
 //    metodo para el menu de opciones
-    private void mostrarMenuAdmin() {
+    private void mostrarMenuAdmin(Administrador administrador1) {
         int opcion=0;
 
-        while(opcion !=14) {
+        while(opcion !=16) {
             System.out.println("\n****BIENVENIDO****");
             System.out.println("1. Registrar paciente");
             System.out.println("2. Registrar medico");
@@ -145,7 +146,9 @@ public class Menu {
             System.out.println("11. Buscar consultorios por Id");
             System.out.println("12. Registrar administrador");
             System.out.println("13. Mostrar administradores");
-            System.out.println("14. Salir");
+            System.out.println("14. Mostrar mis datos");
+            System.out.println("15. Mostrar consultas de un paciente");
+            System.out.println("16. Salir");
             System.out.print("\nSelecciona una opcion: ");
             opcion = scanner.nextInt();
             switch (opcion) {
@@ -344,8 +347,9 @@ public class Menu {
                             System.out.println("\nConsultorio no encontrado, intenta de nuevo\n");
                         }
                     }
+                    String id = hospital.generarIdConsulta();
 
-                    Consulta consulta = new Consulta(fechaConsulta,pacienteParaConsulta,medicoParaConsulta,consultorioParaConsulta);
+                    Consulta consulta = new Consulta(id,fechaConsulta,pacienteParaConsulta,medicoParaConsulta,consultorioParaConsulta);
 
                     hospital.registrarConsulta(consulta);
                     System.out.println(hospital.listaConsultas.get(0));
@@ -465,6 +469,17 @@ public class Menu {
                     hospital.mostrarAdministradores();
                     break;
                 case 14:
+                    System.out.println("\nTus datos son: \n");
+                    hospital.mostrarAdministradorID(administrador1.getId());
+                    break;
+                case 15:
+                    System.out.println("\nMostrar consultas de un paciente: \n");
+                    scanner.nextLine();
+                    System.out.println("Ingresa el id del paciente: ");
+                    String idPacenteConsulta = scanner.nextLine();
+                    hospital.verConsultasPaciente(idPacenteConsulta);
+                    break;
+                case 16:
                     System.out.println("\n♛♛    Saliendo del sistema    ♛♛\n");
                     break;
                 default:
