@@ -16,7 +16,13 @@ public class Producto {
     public double calcularValorTotal() {
         return cantidad * precio;
     }
-
+    public void mostrarDatos() {
+        System.out.printf("Nombre: %s\nCantidad: %d\nPrecio: %.2f\nValor total: %.2f\n",
+                this.nombre,
+                this.cantidad,
+                this.precio,
+                this.calcularValorTotal());
+    }
     public void mostrarDetalles() {
         System.out.println("---    Inventario    ---");
         for (Producto producto : this.listaProductos) {

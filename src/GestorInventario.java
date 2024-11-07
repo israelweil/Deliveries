@@ -20,6 +20,7 @@ public class GestorInventario {
                         double precio = PrecioInvalidoException();
                         Producto producto1 = new Producto(nombre, cantidad, precio);
                         producto.agregarProducto(producto1);
+                        producto1.mostrarDatos();
                         break;
                     case 2:
                         producto.mostrarDetalles();
