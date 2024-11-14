@@ -24,6 +24,7 @@ public class Main {
                         leerTarea();
                         break;
                     case 3:
+                        System.out.println("Gracias por usar el gestor de tareas, hasta luego"
                         return;
                     default:
                         System.out.println("Opcion no valida, intenta nuevamente");
